@@ -1,3 +1,6 @@
+import { removeSync } from 'fs-extra';
+import { generate } from 'multiple-cucumber-html-reporter';
+
 export const config: WebdriverIO.Config = {
   framework: 'cucumber',
   cucumberOpts: {
@@ -19,5 +22,14 @@ export const config: WebdriverIO.Config = {
   waitforTimeout: 10000,
   connectionRetryTimeout: 120000,
   connectionRetryCount: 3,
-  reporters: ['spec'],
+  reporters: ['cucumberjs-json'],
+  onPrepare: () => {
+    removeSync('.tmp/');
+  },
+  onComplete: () => {
+    generate({
+        jsonDir: '.tmp/json',
+        reportPath: '.tmp/report',
+    })
+  }
 }
