@@ -12,6 +12,6 @@ export function getDeviceName(): string {
   return getArgValue('device_name');
 }
 
-export function getCustomTag(): string {
-  return getArgValue('custom_tag');
+export function getTagExpression(): string {
+  return getArgValue('tag');
 }
