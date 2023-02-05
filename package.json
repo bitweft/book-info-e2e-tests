@@ -5,7 +5,8 @@
     "node": ">=19.6.0"
   },
   "scripts": {
-    "test:web:chrome": "wdio config/wdio-web-chrome.conf.ts --app_type=web"
+    "test:app:android": "wdio config/wdio-app-android.conf.ts --platform=android",
+    "test:web:chrome": "wdio config/wdio-web-chrome.conf.ts --platform=web"
   },
   "devDependencies": {
     "@wdio/appium-service": "^8.3.3",
