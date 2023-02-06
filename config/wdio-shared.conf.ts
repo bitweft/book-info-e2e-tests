@@ -16,7 +16,7 @@ export const config: WebdriverIO.Config = {
     }
   },   
   maxInstances: 1,
-  capabilities: undefined,
+  capabilities: {},
   logLevel: 'info',
   bail: 0,
   waitforTimeout: 10000,
