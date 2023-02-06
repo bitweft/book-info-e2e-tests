@@ -8,23 +8,17 @@ export default class PageFactory {
     return PageFactory.getPageObject(absolutePath);
   }
 
-  private static async getPageObject(absolutePath: string): Promise<object> {
-    const page = await import(absolutePath);
-
-    return new page['default']();
-  }
-
   private static getPagePath(pageName: string): string {
-    const appDir = PageFactory.getAppDirPath();
+    const appDir = getPlatform();
     const pagePath = `./src/pages/${appDir}/${pageName}`;
     const absolutePath = path.join(process.cwd(), pagePath);
 
     return absolutePath;
   }
 
-  private static getAppDirPath(): string {
-    const appType = getPlatform();
+  private static async getPageObject(absolutePath: string): Promise<object> {
+    const page = await import(absolutePath);
 
-    return appType === 'web' ? appType : `mobile/${appType}`;
+    return new page['default']();
   }
 }
