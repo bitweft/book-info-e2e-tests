@@ -1,7 +1,6 @@
 import path = require('path');
 import { getPlatform } from '../../../config/test-config-parser';
 
-
 export default class PageFactory {
   static async getInstance(pageName: string): Promise<object> {
     const absolutePath = PageFactory.getPagePath(pageName);

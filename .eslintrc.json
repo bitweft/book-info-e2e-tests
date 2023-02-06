@@ -1,0 +1,45 @@
+{
+  "env": {
+    "es2021": true,
+    "node": true
+  },
+  "extends": "xo",
+  "overrides": [
+    {
+      "extends": [
+        "xo-typescript"
+      ],
+      "files": [
+        "*.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/indent": [
+          "error",
+          2
+        ],
+        "@typescript-eslint/object-curly-spacing": [
+          "error",
+          "always"
+        ]
+      }
+    },
+    {
+      "files": [
+        "tests/step-definitions/*.ts"
+      ],
+      "rules": {
+        "new-cap": "off",
+        "@typescript-eslint/no-empty-function": "off"
+      }
+    }
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "ignorePatterns": [
+    "config/*.ts",
+    "src/pages/factory/page.factory.ts"
+  ],
+  "rules": {}
+}
