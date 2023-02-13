@@ -1,4 +1,5 @@
 import { getAppPath, getDeviceName } from "../src/helpers/argument-parser.helper";
+import { artifactsDirName, createArtifactsDirectory, getSanitizedFileName, getSanitizedFilename } from "../src/helpers/test-artifacts.helper";
 import { config } from "./wdio-shared.conf";
 
 config.services = ['appium'];
@@ -10,5 +11,20 @@ config.capabilities = [
     'appium:app': getAppPath(),
   }
 ]
+
+config.beforeScenario = async (): Promise<void> => {
+  await driver.startRecordingScreen({ videType: 'mpeg4' });
+}
+
+config.afterScenario = async ({ pickle }, { passed }): Promise<void> => {
+  if (passed) {
+    await driver.stopRecordingScreen();
+    return;
+  }
+
+  createArtifactsDirectory();
+  const sanitizedFileName = getSanitizedFileName(pickle.name);
+  await driver.saveRecordingScreen(`${artifactsDirName}/${sanitizedFileName}.mp4`);
+}
 
 module.exports.config = config;
