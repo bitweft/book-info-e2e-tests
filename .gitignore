@@ -1,5 +1,6 @@
 .idea
 .tmp
 .vscode
+.DS_Store
 artifacts
 node_modules
