@@ -1,5 +1,5 @@
 import path = require('path');
-import { getPlatform } from '../../../config/test-config-parser';
+import { getPlatform } from '../../helpers/argument-parser.helper';
 
 export default class PageFactory {
   static async getInstance(pageName: string): Promise<object> {

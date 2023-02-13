@@ -14,7 +14,7 @@ export const config: WebdriverIO.Config = {
     tsNodeOpts: {
       project: 'tsconfig.json'
     }
-  },   
+  },
   maxInstances: 1,
   capabilities: {},
   logLevel: 'info',
@@ -28,8 +28,8 @@ export const config: WebdriverIO.Config = {
   },
   onComplete: () => {
     generate({
-        jsonDir: '.tmp/json',
-        reportPath: '.tmp/report',
+      jsonDir: '.tmp/json',
+      reportPath: '.tmp/report',
     })
   }
 }

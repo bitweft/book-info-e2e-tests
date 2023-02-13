@@ -1,4 +1,4 @@
-import { getAppPath, getDeviceName } from "./test-config-parser";
+import { getAppPath, getDeviceName } from "../src/helpers/argument-parser.helper";
 import { config } from "./wdio-shared.conf";
 
 config.services = ['appium'];
