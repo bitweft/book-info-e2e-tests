@@ -108,3 +108,78 @@ This readme has details about setup required and commands to run the Web and And
   npm run test:app:android -- --app_path=/<absolute-path-to-project-directory>/book-info-e2e-tests/resources/book-info.apk --device_name='Pixel 4'
   ```
   ![Android Test Run](resources/screen-captures/android-test-run.gif)
+
+### To inspect elements on apps:
+
+- Install Appium globally using the command:
+
+  ```block
+    npm install -g appium
+  ```
+
+- Download and install [Appium Inspector](https://github.com/appium/appium-inspector/releases/tag/v2022.11.1)
+- Start Appium server from the terminal by running the command `appium`. Appium will start on the default port `4723`:
+  ![Start Appium Server](resources/screen-captures/start-appium-server.png)
+- Launch Appium inspector and set the remote path to `/wd/hub`
+- Add the following capabilities after replacing the `<absolute-path-to-project>` with your path:
+  ```block
+  {
+    "platformName": "Android",
+    "appium:deviceName": "Pixel 4",
+    "appium:automationName": "UiAutomator2",
+    "appium:app": "/<absolute-path-to-project>/book-info-e2e-tests/resources/book-info.apk"
+  }
+  ```
+  ![Set Capabilities on Appium Inspector](resources/screen-captures/appium-inspector-capabilities.png)
+- You will be able to inspect the elements
+  ![Inspect elements on Appium Inspector](resources/screen-captures/inspect-elements.png)
+- To stop Appium server, press `ctrl + c` on the terminal where you started it
+  ![Stop Appium Server](resources/screen-captures/stop-appium-server.png)
+
+### Cucumber Plugin for VSCode
+
+You can use some plugins on VsCode to be able to easily navigate between feature files and steps.
+
+- Select `Extensions` from the panel and search for `cucumber`
+  ![Search Cucumber Plugin](resources/screen-captures/search-cucumber-plugin.png)
+- I've used the Cucumber (Gherkin) Full Support plugin. You can select and `Install` it.
+  ![Search Cucumber Plugin](resources/screen-captures/install-cucumber-full-support-plugin.png)
+- Now, open `Command Palette` by pressing `ctrl + shift + P` / `cmd + shift + P` (on mac)
+- Search for `>Preferences: Open User Settings (JSON)` and open the `settings.json` file
+- Add the path to the step definitions inside the json object:
+  ```block
+    "cucumberautocomplete.steps": [
+      "tests/step-definitions/**/*.ts"
+    ],
+    "cucumberautocomplete.strictGherkinCompletion": true
+  ```
+  Update the `tests/ste-definitions/**/*.ts` path based on your OS
+- Sometimes, there may be a need to reopen VSCode for the setting to take effect
+
+## Common Issues and Resolutions
+
+### Version support issues
+
+- While running web tests on Chrome, you might have an issue `This version of ChromeDriver only supports Chrome version X. Current browser version is Y`
+  ![Chrome version support issue](resources/screen-captures/chrome-version-support-issue.png)
+- This happens because the chromedriver version mentioned in package.json of this repository does not support the Chrome browser version installed on your machine
+- To fix this, you can uninstall chromdriver and reinstall the one that supports your version of Chrome Browser. Your current Chrome Browser version will be displayed in the location of green box in the above screenshot:
+  ```block
+  npm uninstall chromedriver
+  npm install chromedriver@109 --save-dev
+  ```
+  Replace `@109` with the correct `@<version-number` or `@latest` if you have the latest version of Chrome browser.
+
+### Requested port may already be in use
+
+- While running Android tests, you may see an error that says `The requested port may already be in use`
+  ![Port already in use](resources/screen-captures/requested-port-already-in-use.png)
+- This happens because we are unable to start Appium server on the default port 4723 since something else is running on that port
+- You can kill the service running on that port and re-run the tests
+
+### The application at '...book-info.apk' does not exist or is not accessible
+
+- While running Android tests, you may see that the error says `The application at '...book-info.apk' does not exist or is not accessible`
+  ![Apk path incorrect or not accessibile](resources/screen-captures/apk-path-incorrect.png)
+- This happens when the `--app_path` provided is incorrect or the app does not have correct permissions
+- Ensure that you are using the absolute path to the apk
