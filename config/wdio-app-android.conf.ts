@@ -1,5 +1,5 @@
 import { getAppPath, getDeviceName } from "../src/helpers/argument-parser.helper";
-import { artifactsDirName, createArtifactsDirectory, getSanitizedFileName, getSanitizedFilename } from "../src/helpers/test-artifacts.helper";
+import { artifactsDirName, createArtifactsDirectory, getSanitizedFileName } from "../src/helpers/test-artifacts.helper";
 import { config } from "./wdio-shared.conf";
 
 config.services = ['appium'];

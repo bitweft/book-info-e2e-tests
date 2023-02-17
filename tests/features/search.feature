@@ -1,9 +1,6 @@
 Feature: Search Books
 
-  Scenario Outline: A user should be able to search for books
-    When the user searches for <searchTerm>
-    Then the search results should contain <searchTerm> books
+  Scenario: A user should be able to search for books
+    When the user searches for "testing"
+    Then the search results should contain "testing" books
 
-    Examples:
-      | searchTerm |
-      | testing    |
