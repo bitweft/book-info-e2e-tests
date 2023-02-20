@@ -1,16 +1,52 @@
-import { getAppPath, getDeviceName } from "../src/helpers/argument-parser.helper";
+import { defaultPort } from "../src/constants/default-ports";
+import { getAppPath, getDevices, getMaxInstances } from "../src/helpers/argument-parser.helper";
+import { getFeaturesToRun } from "../src/helpers/features-selector.helper";
 import { artifactsDirName, createArtifactsDirectory, getSanitizedFileName } from "../src/helpers/test-artifacts.helper";
 import { config } from "./wdio-shared.conf";
 
-config.services = ['appium'];
-config.capabilities = [
-  {
-    'appium:platformName': 'Android',
-    'appium:automationName': 'UiAutomator2',
-    'appium:deviceName': getDeviceName(),
-    'appium:app': getAppPath(),
-  }
-]
+const maxInstances = getMaxInstances();
+const devices = getDevices();
+
+function getCapabilities(): object[] {
+  const features = getFeaturesToRun();
+  const totalFeatures = features.length;
+  const featuresPerDevice = totalFeatures / maxInstances;
+
+  return new Array(maxInstances).fill(0).map((_, index) => {
+    const specs = features.slice(index * featuresPerDevice, featuresPerDevice * (index + 1));
+    const portOffset = index * 2;
+
+    return {
+      'appium:platformName': 'Android',
+      'appium:automationName': 'UiAutomator2',
+      'appium:app': getAppPath(),
+      'appium:mjpegServerPort': defaultPort.mjpegServer + portOffset,
+      'appium:wdaLocalPort': defaultPort.wda + portOffset,
+      'port': defaultPort.appium + portOffset,
+      'appium:udid': devices[index],
+      specs,
+    };
+  });
+}
+
+function getServices(): [string, object][] {
+  return new Array(maxInstances).fill(0).map((_, index) => {
+    const portOffset = index * 2;
+    return ([
+      'appium',
+      {
+        args: {
+          port: defaultPort.appium + portOffset,
+          bootstrapPort: defaultPort.bootstrap + portOffset,
+        },
+      },
+    ]);
+  });
+}
+
+
+config.services = getServices();
+config.capabilities = getCapabilities();
 
 config.beforeScenario = async (): Promise<void> => {
   await driver.startRecordingScreen({ videType: 'mpeg4' });

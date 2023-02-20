@@ -105,7 +105,7 @@ This readme has details about setup required and commands to run the Web and And
 - The path of the demo app file is: `/<absolute-path-to-project-directory>/book-info-e2e-tests/resources/book-info.apk`. Keep a note of the absolute path to the apk file.
 - Test run command:
   ```block
-  npm run test:app:android -- --app_path=/<absolute-path-to-project-directory>/book-info-e2e-tests/resources/book-info.apk --device_name='Pixel 4'
+  npm run test:app:android -- --app_path=/<absolute-path-to-project-directory>/book-info-e2e-tests/resources/book-info.apk --devices='emulator-5554'
   ```
   ![Android Test Run](resources/screen-captures/android-test-run.gif)
 

@@ -7,7 +7,6 @@ export function getSanitizedFileName(name: string): string {
 }
 
 export function createArtifactsDirectory(): void {
-
   if (!fs.existsSync(artifactsDirName)) {
     fs.mkdirSync(artifactsDirName, { recursive: true });
   }

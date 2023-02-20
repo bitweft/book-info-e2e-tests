@@ -1,5 +1,6 @@
 import { removeSync } from 'fs-extra';
 import { generate } from 'multiple-cucumber-html-reporter';
+import { getMaxInstances } from '../src/helpers/argument-parser.helper';
 
 export const config: WebdriverIO.Config = {
   framework: 'cucumber',
@@ -15,7 +16,7 @@ export const config: WebdriverIO.Config = {
       project: 'tsconfig.json'
     }
   },
-  maxInstances: 1,
+  maxInstances: getMaxInstances(),
   capabilities: {},
   logLevel: 'info',
   bail: 0,
