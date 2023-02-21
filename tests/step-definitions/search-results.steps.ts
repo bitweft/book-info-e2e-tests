@@ -1,8 +1,9 @@
 import { Then } from '@wdio/cucumber-framework';
-import SearchResultsPage from '../../src/pages/web/search-results.page';
+import PageFactory from '../../src/pages/factory/page.factory';
+import type SearchResultsPage from '../../src/pages/parent/search-results.page';
 
 Then(/^the search results should display "(\w+)" books$/, async (expectedTitle: string) => {
-  const searchResultsPage = new SearchResultsPage();
+  const searchResultsPage = await PageFactory.getInstance('search-results.page') as SearchResultsPage;
   const actualTitles = await searchResultsPage.getSearchResultTitles();
 
   expect(actualTitles.length).toBeGreaterThan(0);
