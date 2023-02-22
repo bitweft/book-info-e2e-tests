@@ -49,6 +49,9 @@ config.services = getServices();
 config.capabilities = getCapabilities();
 
 config.beforeScenario = async (): Promise<void> => {
+  // const packageName = await driver.getCurrentPackage();
+  // await driver.terminateApp(packageName);
+  // await driver.launchApp();
   await driver.startRecordingScreen({ videType: 'mpeg4' });
 }
 
