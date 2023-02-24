@@ -10,4 +10,8 @@ export default class SearchResultsPage extends BaseSearchResultsPage {
     const titlePromises = titleElements.map(async element => element.getText());
     return Promise.all(titlePromises);
   }
+
+  async selectBookWithTitle(title: string): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
 }

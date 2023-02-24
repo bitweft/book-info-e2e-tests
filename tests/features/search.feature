@@ -1,3 +1,4 @@
+@android @web
 Feature: Search Books
 
   Scenario: A user should be able to search for books

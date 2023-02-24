@@ -1,6 +1,6 @@
 import { removeSync } from 'fs-extra';
 import { generate } from 'multiple-cucumber-html-reporter';
-import { getMaxInstances } from '../src/helpers/argument-parser.helper';
+import { getMaxInstances, getPlatform } from '../src/helpers/argument-parser.helper';
 import { getFeaturesToRun } from '../src/helpers/features-selector.helper';
 
 export const config: WebdriverIO.Config = {
@@ -8,6 +8,7 @@ export const config: WebdriverIO.Config = {
   cucumberOpts: {
     require: ['tests/step-definitions/**/*.ts'],
     timeout: 60000,
+    tagExpression: `@${getPlatform()}`
   },
   specs: getFeaturesToRun(),
   runner: 'local',
