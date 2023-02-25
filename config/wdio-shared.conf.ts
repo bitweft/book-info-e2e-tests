@@ -1,6 +1,7 @@
 import { removeSync } from 'fs-extra';
 import { generate } from 'multiple-cucumber-html-reporter';
 import { getMaxInstances } from '../src/helpers/argument-parser.helper';
+import { getFeaturesToRun } from '../src/helpers/features-selector.helper';
 
 export const config: WebdriverIO.Config = {
   framework: 'cucumber',
@@ -8,7 +9,7 @@ export const config: WebdriverIO.Config = {
     require: ['tests/step-definitions/**/*.ts'],
     timeout: 60000,
   },
-  specs: ['../tests/features/**/*.feature'],
+  specs: getFeaturesToRun(),
   runner: 'local',
   autoCompileOpts: {
     autoCompile: true,

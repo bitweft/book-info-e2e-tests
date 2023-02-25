@@ -40,3 +40,9 @@ export function getMaxInstances(): number {
 
   return maxInstances ? Number(maxInstances) : 1;
 }
+
+export function getFeatures(): string[] | undefined {
+  const customFeatures = getOptionalArgValue('features');
+
+  return customFeatures ? customFeatures.split(',') : undefined;
+}
